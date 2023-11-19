@@ -7,9 +7,7 @@ host = ''
 port = 12345
 s.bind((host,port))
 s.listen(5)
-#print('Socket is listening')
 conn, addr = s.accept()
-#print('Got a connection from', addr)
 
 def SEND():
     while True:
