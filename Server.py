@@ -14,6 +14,8 @@ s.bind((host,port))
 s.listen(5)
 conn, addr = s.accept()
 
+black = (0,0,0)
+
 def PLACEHOLDER():
     pass
 
@@ -30,19 +32,31 @@ def RECIEVE():
 t1 = threading.Thread(target = SEND)
 t2 = threading.Thread(target = RECIEVE)
 
-#Enter Username
+#Defining all frames
+ChatRoomFrame = Frame(root)
+EnterRoomFrame = Frame(root)
+CreateRoomFrame = Frame(root)
 
-#Line
+#Initial Frame Grid
+CreateRoomFrame.grid(row = 0, column = 0)
 
-#Enter Button
+#CreateRoomFrame
+ButtonJoin = Button(CreateRoomFrame, text = "Join a room", command = lambda: PLACEHOLDER())
+ButtonJoin.grid(row = 0, column = 0)
 
-Label1 = Label(root, text = "Enter a username", font = ("Arial",12,"bold"))
-Label1.grid(row = 0, column = 2)
+ButtonCreate = Button(CreateRoomFrame, text = "Create a room", command = lambda: PLACEHOLDER())
+ButtonCreate.grid(row = 1, column = 0)
 
-entry1 = Entry(root)
+
+
+#EnterRoomFrame
+LabelUSEnter = Label(EnterRoomFrame, text = "Enter a username", font = ("Arial",12,"bold"))
+LabelUSEnter.grid(row = 0, column = 2)
+
+entry1 = Entry(EnterRoomFrame)
 entry1.grid(row = 1, column = 2)
 
-buttonEnter = Button(root, text = "Enter", command = lambda: PLACEHOLDER())
+buttonEnter = Button(EnterRoomFrame, text = "Enter", command = lambda: PLACEHOLDER())
 buttonEnter.grid(row = 2, column = 2)
 
 
@@ -51,3 +65,12 @@ buttonEnter.grid(row = 2, column = 2)
 #t2.start()
 
 root.mainloop()
+
+
+#Create window asking to create or enter room
+
+#Enter Window: Username and RoomID
+
+#Create Window: Creates Window
+
+#Create Chat Room
