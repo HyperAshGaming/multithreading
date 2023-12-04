@@ -20,10 +20,13 @@ s.connect((host,port))
 def PLACEHOLDER():
     pass
 
-def SEND():
-    while True:
-        data = input()
-        s.sendall(data.encode())
+def SEND(m,r):
+    print(m.get(),r)
+    MessageSent = Label(CreateRoomFrame, text = m.get, font = ("Arial",12,"bold"))
+    MessageSent.grid(row = r, column = 1)
+    r += 1
+    data = m.get()
+    s.sendall(data.encode())
 
 def RECIEVE():
     while True:
@@ -55,8 +58,15 @@ def RoomCreateFrame():
     DecideRoomFrame.destroy()
     CreateRoomFrame.grid(row = 0, column = 0)
 
-#t1 = threading.Thread(target = SEND)
-#t2 = threading.Thread(target = RECIEVE)
+def xyz():
+    t2.start()
+    t1.start()
+
+r = 0
+
+t1 = threading.Thread(target = SEND)
+t2 = threading.Thread(target = RECIEVE)
+
 #Defining all frames
 ChatRoomFrame = Frame(root, width = 50, height = 150)
 EnterRoomFrame = Frame(root)
@@ -107,12 +117,13 @@ entryUSCreate.grid(row = 4, column = 2)
 buttonCreate = Button(CreateRoomFrame, text = "Create", command = lambda: PLACEHOLDER(entryMakeIDCreate,entryUSCreate))
 buttonCreate.grid(row = 5, column = 2)
 
-#ChatRoomFrame
+#MessageFrame
 
-LabelTEST = Label(ChatRoomFrame, text = "text", font = ("Arial",100,"bold"))
-LabelTEST.grid(row = 50, column = 50)
+MessageEntry = Entry(ChatRoomFrame)
+MessageEntry.grid(row = 2, column = 0)
 
-#t2.start()
-#t1.start()
+MessageEnterButton = Button(ChatRoomFrame, text = "enter", command = lambda: xyz())
+MessageEnterButton.grid(row = 2, column = 1)
+
 
 root.mainloop()

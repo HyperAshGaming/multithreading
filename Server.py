@@ -7,7 +7,7 @@ connsqlite = sqlite3.connect('Chat.db')
 c = connsqlite.cursor()
 
 root = Tk()
-root.title("Chat Room")
+root.title("Chat Room SERVER")
 
 root.grid()
 
@@ -18,20 +18,21 @@ s.bind((host,port))
 s.listen(5)
 conn, addr = s.accept()
 
-def SEND(m,r):
-    print(r)
-    MessageSent = Label(CreateRoomFrame, text = m.get, font = ("Arial",12,"bold"))
+def SEND():
+    global MessageEntry
+    global r
+    print(m,r)
+    MessageSent = Label(CreateRoomFrame, text = m, font = ("Arial",12,"bold"))
     MessageSent.grid(row = r, column = 1)
     r += 1
-    #while True:
-        #data = input()
-        #conn.sendall(data.encode())
+    data = m
+    conn.sendall(data.encode())
 
 def RECIEVE():
     r += 1
-    #while True:
-        #data = conn.recv(1024)
-        #print("                  ",data.decode())
+    while True:
+        data = conn.recv(1024)
+        print("                  ",data.decode())
 
 def PLACEHOLDER():
     print(entryIDenter.get(),entryUSEnter.get())
@@ -60,6 +61,10 @@ def RoomEnterFrame():
 def RoomCreateFrame():
     DecideRoomFrame.destroy()
     CreateRoomFrame.grid(row = 0, column = 0)
+
+def xyz():
+    t1.start()
+    t2.start()
 
 t1 = threading.Thread(target = SEND)
 t2 = threading.Thread(target = RECIEVE)
@@ -131,7 +136,7 @@ LabelTEST.grid(row = 0, column = 0)
 MessageEntry = Entry(ChatRoomFrame)
 MessageEntry.grid(row = 2, column = 0)
 
-MessageEnterButton = Button(ChatRoomFrame, text = "enter", command = lambda: SEND(MessageEntry,r))
+MessageEnterButton = Button(ChatRoomFrame, text = "enter", command = lambda: xyz())
 MessageEnterButton.grid(row = 2, column = 1)
 
 
@@ -140,12 +145,3 @@ MessageEnterButton.grid(row = 2, column = 1)
 #t2.start()
 
 root.mainloop()
-
-
-#Create window asking to create or enter room
-
-#Enter Window: Username and RoomID
-
-#Create Window: Creates Window
-
-#Create Chat Room
